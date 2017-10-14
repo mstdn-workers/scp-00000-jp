@@ -69,7 +69,7 @@ class Bot(object):
                 self.event.on_joined(ws, event["user"])
 
     def send(self, ws):
-        schedule.every(5).seconds.do(self.event.on_timer, ws)
+        schedule.every(settings.TIMER_INTERVAL).seconds.do(self.event.on_timer, ws)
         def timer():
             while True:
                 schedule.run_pending()

@@ -41,10 +41,8 @@ class EventHandler(object):
             脱走者 = 感染者 - 収容者
             新参者 = 収容者 - 感染者
             死亡者 = 感染者 - 全人類
-            捕獲者 = 収容者 - 感染者
 
             utils.file.save("infected", list(感染者 | 新参者 - 死亡者))
-            print(len(収容者))
             if len(脱走者) > 0:
                 名簿 = "」「 ".join([ self.webapi.get_username(ID) for ID in 脱走者 ])
                 警告 = "感染者「{0}」が収容所から脱走しました。職員はただちに再収容を行ってください。".format(名簿)
