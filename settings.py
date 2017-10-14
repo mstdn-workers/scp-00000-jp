@@ -1,6 +1,9 @@
 import os
 import utils.file
 
+# Mode
+DEBUG_MODE = os.path.exists(".debug_mode")
+
 # Channels
 CHANNEL_GENERAL   = "C54RD0EPK"
 CHANNEL_CONTAINER = "C6PBY609X"
@@ -12,8 +15,5 @@ USER_SELF = "U7AF58VGQ"
 # Token
 API_TOKEN = os.environ.get("SLACK_API_TOKEN", utils.file.read(".token"))
 
-# Mode
-DEBUG_MODE = os.path.exists(".debug_mode")
-
 # Option
-TIMER_INTERVAL = 15 * 60
+TIMER_INTERVAL = 5 if DEBUG_MODE else 60 * 60
