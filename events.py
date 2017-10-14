@@ -3,8 +3,6 @@ import utils.file
 import utils.api
 import settings
 
-import json
-
 収容所 = settings.CHANNEL_CONTAINER
 
 class EventHandler(object):
@@ -25,7 +23,8 @@ class EventHandler(object):
 
     def on_joined(self, ws, user):
         try:
-            感染者 = set(utils.file.load("infected"))
+            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded")) \
+                if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
             感染者.add(user)
             utils.file.save("infected", list(感染者))
 
@@ -34,7 +33,8 @@ class EventHandler(object):
 
     def on_timer(self, ws):
         try:
-            感染者 = set(utils.file.load("infected"))
+            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded")) \
+                if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
             収容者 = set(self.webapi.get_channel_members(収容所))
             全人類 = set(self.webapi.get_team_members())
 
