@@ -23,8 +23,8 @@ class EventHandler(object):
 
     def on_joined(self, ws, user):
         try:
-            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded")) \
-                if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
+            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded"))
+            感染者 = 感染者 if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
             感染者.add(user)
             utils.file.save("infected", list(感染者))
 
@@ -33,14 +33,16 @@ class EventHandler(object):
 
     def on_timer(self, ws):
         try:
-            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded")) \
-                if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
+            感染者 = set(utils.file.load("infected")) - set(utils.file.load("excluded"))
+            感染者 = 感染者 if not settings.MAO_ONLY_MODE else {settings.USER_MAO}
             収容者 = set(self.webapi.get_channel_members(収容所))
             全人類 = set(self.webapi.get_team_members())
 
             脱走者 = 感染者 - 収容者
             新参者 = 収容者 - 感染者
             死亡者 = 感染者 - 全人類
+
+            print(脱走者)
 
             utils.file.save("infected", list(感染者 | 新参者 - 死亡者))
             if len(脱走者) > 0:

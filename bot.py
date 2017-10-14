@@ -59,7 +59,7 @@ class Bot(object):
 
         if self.validate(event):
 
-            if event["type"] == "message":
+            if event["type"] == "message" and "subtype" not in event:
                 self.event.on_message(ws, event["user"], event["text"])
 
             if event["type"] == "member_left_channel":
