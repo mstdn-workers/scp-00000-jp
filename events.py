@@ -42,8 +42,6 @@ class EventHandler(object):
             新参者 = 収容者 - 感染者
             死亡者 = 感染者 - 全人類
 
-            print(脱走者)
-
             utils.file.save("infected", list(感染者 | 新参者 - 死亡者))
             if len(脱走者) > 0:
                 名簿 = "」「 ".join([ self.webapi.get_username(ID) for ID in 脱走者 ])
